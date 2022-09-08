@@ -1,15 +1,53 @@
 // import { useState } from "react";
 // import reactLogo from "./assets/react.svg";
-// import "./App.css";
-// import { Switch, Route, Link } from "react-router-dom";
+import "./App.css";
+import { BrowserRouter as Router, Link, Route, Routes } from "react-router-dom";
 import { Layout, Typography, Space } from "antd";
-import { Navbar } from "./Components";
+import {
+  Cryptocurrencies,
+  Cryptodetail,
+  Exchanges,
+  Homepage,
+  Navbar,
+  News,
+} from "./Components";
 const App = () => {
   return (
-    <div>
-      <div className="Navbar">
+    <div className="app">
+      <div className="navbar">
         <Navbar />
-        {/* <span>kfnl</span> */}
+      </div>
+      <div className="main">
+        <Layout>
+          <div className="routes">
+            <Routes>
+              <Route exact path="/" element={<Homepage />} />
+              <Route exact path="/exchanges" element={<Exchanges />} />
+              <Route
+                exact
+                path="/cryptocurrencies"
+                element={<Cryptocurrencies />}
+              />
+              <Route exact path="/crypto/:coinId" element={<Cryptodetail />} />
+              <Route exact path="/news" element={<News />} />
+            </Routes>
+          </div>
+        </Layout>
+        <div className="footer">
+          <Typography.Title
+            level={5}
+            style={{ color: "white", textAlign: "center" }}
+          >
+            Cryptoverse <br />
+            All Rights Reserved!
+          </Typography.Title>
+          <Space>
+            <Link to="/">Home</Link>
+            <Link to="/cryptocurrencies">Cryptocurrencies</Link>
+            <Link to="/exchanges">Exchange</Link>
+            <Link to="/news">News</Link>
+          </Space>
+        </div>
       </div>
     </div>
   );
