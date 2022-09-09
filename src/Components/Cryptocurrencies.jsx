@@ -7,7 +7,6 @@ import { useGetCryptosQuery } from "../services/cryptoApi";
 
 const Cryptocurrencies = ({ simplify }) => {
   const count = simplify ? 10 : 100;
-  console.log("count", count);
   const { data: cryptoList, isFetching } = useGetCryptosQuery(count);
   const [cryptos, setCryptos] = useState(cryptoList?.data?.coins);
   const [searchedTerm, setSearchedTerm] = useState("");
@@ -20,15 +19,16 @@ const Cryptocurrencies = ({ simplify }) => {
 
   if (isFetching) return "still loading...";
 
-  // console.log("cryptos", cryptos);
   return (
     <>
-      <div className="search-crypto">
-        <Input
-          placeholder="Search Crypto"
-          onChange={(e) => setSearchedTerm(e.target.value)}
-        />
-      </div>
+      {!simplify && (
+        <div className="search-crypto">
+          <Input
+            placeholder="Search Crypto"
+            onChange={(e) => setSearchedTerm(e.target.value)}
+          />
+        </div>
+      )}
       <Row gutter={[32, 32]} className="crypto-card-container">
         {cryptos?.map((currency) => (
           <Col
@@ -44,9 +44,9 @@ const Cryptocurrencies = ({ simplify }) => {
                 extra={<img className="crypto-image" src={currency.iconUrl} />}
                 hoverable
               >
-                <p> Price: {millify(currency.price)}</p>
+                <p> Price: ${millify(currency.price)}</p>
                 <p> Market Cap: {millify(currency.marketCap)}</p>
-                <p> Daily Change: {millify(currency.change)}</p>
+                <p> Daily Change: {millify(currency.change)}%</p>
               </Card>
             </Link>
           </Col>

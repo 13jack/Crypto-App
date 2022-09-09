@@ -15,8 +15,8 @@ const Navbar = () => {
     <div className="nav-container">
       <div className="logo-container">
         <Avatar src={icon} />
-        <Typography.Title level={5}>
-          <Link to="/">Cryptoverse </Link>
+        <Typography.Title level={3}>
+          <Link to="/">Cryptogram </Link>
         </Typography.Title>
       </div>
       {/* --------- Menu items ------------  */}

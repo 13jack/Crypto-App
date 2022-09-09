@@ -44,6 +44,8 @@ a:hover {
     height: 100vh;
     margin: 0px;
     background-color: rgb(0, 21, 41);
+    /* sdfbsj */
+    width: 16%;
 }
 
 .logo-container {
@@ -52,6 +54,7 @@ a:hover {
     padding: 20px;
     align-items: center;
     width: 100%;
+    justify-content: space-between;
 }
 
 .logo {
