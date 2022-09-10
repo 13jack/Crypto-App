@@ -321,10 +321,12 @@ a:hover {
 .provider-container {
     display: flex;
     justify-content: space-between;
+    flex-wrap: nowrap;
 }
 
 .provider-name {
     margin-left: 10px;
+    max-width: 50px;
 }
 
 .chart-header {
