@@ -49,10 +49,9 @@ const News = ({ simplify }) => {
                   />
                 </div>
                 <p>
-                  {console.log(news)}
-                  {news.description > 100
+                  {news.description < 150
                     ? news.description
-                    : `${news.description.substring(0, 150)}.....`}
+                    : `${news.description.substring(0, 300)}...`}
                 </p>
                 <div className="provider-container">
                   <div>
