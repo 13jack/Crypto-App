@@ -15,10 +15,12 @@ import {
   ThunderboltOutlined,
 } from "@ant-design/icons";
 
-import { useGetCryptoDetailsQuery } from "../services/cryptoApi";
-import { Cryptodetail } from ".";
+import {
+  useGetCryptoDetailsQuery,
+  useGetCryptoHistoryQuery,
+} from "../services/cryptoApi";
+import { LineChart } from "./index";
 // import Loader from "./Loader";
-// import LineChart from "./LineChart";
 
 const { Title, Text } = Typography;
 const { Option } = Select;
@@ -27,11 +29,11 @@ const CryptoDetails = () => {
   const { coinId } = useParams();
   const [timePeriod, setTimePeriod] = useState("7d");
   const { data, isFetching } = useGetCryptoDetailsQuery(coinId);
-  // const { data: coinHistory } = useGetCryptoHistoryQuery({
-  //   coinId,
-  //   timeperiod,
-  // });
-
+  const { data: coinHistory } = useGetCryptoHistoryQuery({
+    timePeriod,
+    coinId,
+  });
+  console.log(coinHistory);
   const cryptoDetails = data?.data?.coin;
   if (isFetching) return "Please wait... LOading";
 
@@ -116,6 +118,11 @@ const CryptoDetails = () => {
           <Option key={op}> {op}</Option>
         ))}
       </Select>
+      <LineChart
+        conHistory={coinHistory}
+        currentPrice={millify(cryptoDetails.price)}
+        coinName={cryptoDetails.name}
+      />
       <Col className="stats-container">
         <Col className="coin-value-statistics">
           <Col className="coin-value-statistics-heading">
