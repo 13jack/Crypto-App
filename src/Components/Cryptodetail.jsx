@@ -26,14 +26,13 @@ const { Title, Text } = Typography;
 const { Option } = Select;
 
 const CryptoDetails = () => {
-  const { coinId } = useParams();
+  const { uuid } = useParams();
   const [timePeriod, setTimePeriod] = useState("7d");
-  const { data, isFetching } = useGetCryptoDetailsQuery(coinId);
+  const { data, isFetching } = useGetCryptoDetailsQuery(uuid);
   const { data: coinHistory } = useGetCryptoHistoryQuery({
     timePeriod,
-    coinId,
+    uuid,
   });
-  console.log(coinHistory);
   const cryptoDetails = data?.data?.coin;
   if (isFetching) return "Please wait... LOading";
 
@@ -42,10 +41,10 @@ const CryptoDetails = () => {
   const stats = [
     {
       title: "Price to USD",
-      value: `$ ${cryptoDetails.price && millify(cryptoDetails.price)}`,
+      value: `$ ${cryptoDetails?.price && millify(cryptoDetails?.price)}`,
       icon: <DollarCircleOutlined />,
     },
-    { title: "Rank", value: cryptoDetails.rank, icon: <NumberOutlined /> },
+    { title: "Rank", value: cryptoDetails?.rank, icon: <NumberOutlined /> },
     {
       title: "24h Volume",
       value: `$ ${
@@ -55,7 +54,9 @@ const CryptoDetails = () => {
     },
     {
       title: "Market Cap",
-      value: `$ ${cryptoDetails.marketCap && millify(cryptoDetails.marketCap)}`,
+      value: `$ ${
+        cryptoDetails?.marketCap && millify(cryptoDetails?.marketCap)
+      }`,
       icon: <DollarCircleOutlined />,
     },
     {
@@ -114,14 +115,15 @@ const CryptoDetails = () => {
         placeholder="please select time period"
         onChange={(val) => setTimePeriod(val)}
       >
+        {console.log("timePeriod", timePeriod)}
         {time.map((op) => (
           <Option key={op}> {op}</Option>
         ))}
       </Select>
       <LineChart
-        conHistory={coinHistory}
-        currentPrice={millify(cryptoDetails.price)}
-        coinName={cryptoDetails.name}
+        coinHistory={coinHistory}
+        currentPrice={millify(cryptoDetails?.price)}
+        coinName={cryptoDetails?.name}
       />
       <Col className="stats-container">
         <Col className="coin-value-statistics">

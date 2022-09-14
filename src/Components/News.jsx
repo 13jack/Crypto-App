@@ -11,12 +11,13 @@ const News = ({ simplify }) => {
   const [newsCategory, setNewsCategory] = useState("Cryptocurrency");
   const { data: cryptoNews } = useGetCryptoNewsQuery({ newsCategory, count });
   const { data } = useGetCryptosQuery(100);
+  const defaultImage = `https://images.pexels.com/photos/8370772/pexels-photo-8370772.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1`;
   if (!cryptoNews?.value) return "please wait...Loading";
   return (
     <>
       <Row gutter={[25, 25]}>
         {!simplify && (
-          <Col span={24}>
+          <Col span={24} style={{ alignSelf: "center" }}>
             <Select
               showSearch
               className="select-news"
@@ -40,18 +41,20 @@ const News = ({ simplify }) => {
               <a href={news.url} target="_blank" rel="norefference">
                 <div className="news-image-container">
                   <Title level={4} className="news-title">
-                    {news.name}
+                    {news.name.length < 100
+                      ? news.name
+                      : `${news.name.substring(0, 50)}... `}
                   </Title>
                   <img
-                    style={{ maxHeight: "100px", maxWidth: "200px" }}
-                    src={news?.image?.thumbnail?.contentUrl}
+                    style={{ maxHeight: "100px", maxWidth: "150px" }}
+                    src={news?.image?.thumbnail?.contentUrl || defaultImage}
                     alt="news"
                   />
                 </div>
                 <p>
                   {news.description < 150
                     ? news.description
-                    : `${news.description.substring(0, 300)}...`}
+                    : `${news.description.substring(0, 150)}...`}
                 </p>
                 <div className="provider-container">
                   <div>
