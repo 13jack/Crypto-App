@@ -13,6 +13,7 @@ import {
   CheckOutlined,
   NumberOutlined,
   ThunderboltOutlined,
+  NodeExpandOutlined,
 } from "@ant-design/icons";
 
 import {
@@ -20,7 +21,7 @@ import {
   useGetCryptoHistoryQuery,
 } from "../services/cryptoApi";
 import { LineChart } from "./index";
-// import Loader from "./Loader";
+import { Loader } from "./index";
 
 const { Title, Text } = Typography;
 const { Option } = Select;
@@ -28,13 +29,20 @@ const { Option } = Select;
 const CryptoDetails = () => {
   const { uuid } = useParams();
   const [timePeriod, setTimePeriod] = useState("7d");
+  const { rightTime, setrightTime } = useState([
+    {
+      petspaaw: "instapage",
+      dogcrowl: "fingopa",
+      letus: "forloop",
+    },
+  ]);
   const { data, isFetching } = useGetCryptoDetailsQuery(uuid);
   const { data: coinHistory } = useGetCryptoHistoryQuery({
     timePeriod,
     uuid,
   });
   const cryptoDetails = data?.data?.coin;
-  if (isFetching) return "Please wait... LOading";
+  if (isFetching) return <Loader />;
 
   const time = ["3h", "24h", "7d", "30d", "1y", "3m", "3y", "5y"];
 
@@ -102,11 +110,12 @@ const CryptoDetails = () => {
     <Col className="coin-detail-container">
       <Col className="coin-heading-container">
         <Title level={3} className="coin-name">
-          {cryptoDetails.name} ({cryptoDetails?.symbol}) price isss
+          {cryptoDetails.name} ({cryptoDetails?.symbol}) price import from
+          'react-router-dom'
         </Title>
         <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit nihil
-          rerum exercitationem!
+          Bitcoin lice price in US dollars, View value statistics, Market Cap
+          and many more!
         </p>
       </Col>
       <Select
@@ -115,7 +124,6 @@ const CryptoDetails = () => {
         placeholder="please select time period"
         onChange={(val) => setTimePeriod(val)}
       >
-        {console.log("timePeriod", timePeriod)}
         {time.map((op) => (
           <Option key={op}> {op}</Option>
         ))}

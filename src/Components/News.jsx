@@ -5,14 +5,18 @@ const { Text, Title } = Typography;
 import { useGetCryptoNewsQuery } from "../services/cryptoNewsApi";
 import moment from "moment";
 import { useGetCryptosQuery } from "../services/cryptoApi";
+import { Loader } from "./index";
 
 const News = ({ simplify }) => {
   const count = simplify ? 6 : 18;
   const [newsCategory, setNewsCategory] = useState("Cryptocurrency");
-  const { data: cryptoNews } = useGetCryptoNewsQuery({ newsCategory, count });
+  const { data: cryptoNews, isFetching } = useGetCryptoNewsQuery({
+    newsCategory,
+    count,
+  });
   const { data } = useGetCryptosQuery(100);
   const defaultImage = `https://images.pexels.com/photos/8370772/pexels-photo-8370772.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1`;
-  if (!cryptoNews?.value) return "please wait...Loading";
+  if (isFetching) return <Loader />;
   return (
     <>
       <Row gutter={[25, 25]}>

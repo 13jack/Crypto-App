@@ -1,9 +1,13 @@
 import React from "react";
+import { Loader } from "./index";
 
 const Exchanges = () => {
   return (
     <div>
-      <h3>Exchanges!</h3>
+      <h1>Coming soon</h1>
+      <h2>
+        <Loader />
+      </h2>
     </div>
   );
 };

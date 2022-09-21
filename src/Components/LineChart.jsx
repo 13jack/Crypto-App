@@ -2,11 +2,11 @@ import React from "react";
 import Chart from "chart.js/auto";
 import { Row, Col, Typography } from "antd";
 import { Line } from "react-chartjs-2";
+// import { getRequestStatusFlags } from "@reduxjs/toolkit/dist/query/core/apiState";
 
 const { Title } = Typography;
 
 const LineChart = ({ coinHistory, currentPrice, coinName }) => {
-  console.log("coinHisroty", coinHistory);
   const coinPrice = [];
   const coinTimestamp = [];
   for (let i = 0; i < coinHistory?.data?.history?.length; i++) {

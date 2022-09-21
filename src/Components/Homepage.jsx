@@ -4,12 +4,13 @@ import { Typography, Row, Col, Statistic } from "antd";
 import { Link } from "react-router-dom";
 const { Title } = Typography;
 import { useGetCryptosQuery } from "../services/cryptoApi";
-import { Cryptocurrencies, News } from "../Components";
+import { Cryptocurrencies, News, Loader } from "../Components";
+import { DownCircleFilled, HourglassFilled } from "@ant-design/icons";
 
 const Homepage = () => {
   const { data, isFetching } = useGetCryptosQuery(10);
   const globalStats = data?.data?.stats;
-  if (isFetching) return "still loading...";
+  if (isFetching) return <Loader />;
   return (
     <>
       <Title level={2} className="heading">
